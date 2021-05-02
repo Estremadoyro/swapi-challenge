@@ -1,0 +1,579 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.1",
+    "title": "SWAPI Challenge Documentation",
+    "description": "Documentation for the SWAPI Challenge",
+    "contact": {
+      "name": "Leonardo Estremadoyro",
+      "url": "https://github.com/Estremadoyro",
+      "email": "lmestremadoyro@gmail.com.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://9853px0s34.execute-api.us-east-1.amazonaws.com/dev/",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/api/v1.0/swapi/{model}": {
+      "get": {
+        "description": "Devuelve todos los registros para el modelo indicado de SWAPI",
+        "responses": {
+          "200": {
+            "description": "Lista de objetos del modelo ingresado como path parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": []
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "description": "Modelo de los Schemas disponibles",
+          "required": true
+        }
+      ]
+    },
+    "/api/v1.0/swapi/{model}/{id}": {
+      "get": {
+        "description": "Retorna un registro segun su modelo y id en SWAPI",
+        "responses": {
+          "200": {
+            "description": "Registro obtenido segun Modelo y ID de SWAPI"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "description": "Modelo de los Schemas disponibles",
+          "required": true
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Id de persona del modelo ingresado",
+          "required": true
+        }
+      ]
+    },
+    "/api/v1.0/db/{model}": {
+      "get": {
+        "description": "Retorna todos los registros del modelo creado en DynamoDB",
+        "responses": {
+          "200": {
+            "description": "Todos los registro del modelo dynamoDB"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "description": "Modelo de los Schemas disponibles en la DB",
+          "required": true
+        }
+      ]
+    },
+    "/api/v1.0/db/{model}/{id}": {
+      "get": {
+        "description": "Retorna un registro segun su modelo y id en DynamoDB",
+        "responses": {
+          "200": {
+            "description": "Registro obtenido segun Modelo y ID en DynamoDB"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "description": "Modelo de los Schemas disponibles en la DB",
+          "required": true
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Id de persona del modelo ingresado en la DB",
+          "required": true
+        }
+      ]
+    },
+    "/api/v1.0/db/{model}": {
+      "post": {
+        "description": "Crea un nuevo registro segun el modelo y el body ingresado",
+        "responses": {
+          "200": {
+            "description": "Nuevo registro creado en al DynamoDB"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "model",
+          "in": "path",
+          "description": "Modelo de los Schemas disponibles en la DB",
+          "required": true
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "Root": {
+        "type": "object",
+        "properties": {
+          "peliculas": {
+            "type": "string"
+          },
+          "personas": {
+            "type": "string"
+          },
+          "planetas": {
+            "type": "string"
+          },
+          "especies": {
+            "type": "string"
+          },
+          "naves": {
+            "type": "string"
+          },
+          "vehiculos": {
+            "type": "string"
+          }
+        }
+      },
+      "Persona": {
+        "type": "object",
+        "properties": {
+          "anio_nacimiento": {
+            "type": "string"
+          },
+          "color_ojos": {
+            "type": "string"
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Pelicula"
+              }
+            }
+          },
+          "sexo": {
+            "type": "string"
+          },
+          "color_cabello": {
+            "type": "string"
+          },
+          "altura": {
+            "type": "string"
+          },
+          "mundonatal": {
+            "type": "string"
+          },
+          "masa": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "color_piel": {
+            "type": "string"
+          },
+          "creacion": {
+            "type": "string",
+            "format": "date"
+          },
+          "edicion": {
+            "type": "string",
+            "format": "date"
+          },
+          "especies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Especie"
+              }
+            }
+          },
+          "navesespaciales": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Naveespacial"
+              }
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "vehiculos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Vehiculo"
+              }
+            }
+          }
+        }
+      },
+      "Pelicula": {
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string"
+          },
+          "episodio_id": {
+            "type": "integer"
+          },
+          "parrafo_inicial": {
+            "type": "string"
+          },
+          "director": {
+            "type": "string"
+          },
+          "productor": {
+            "type": "string"
+          },
+          "fecha_lanzamiento": {
+            "type": "string",
+            "format": "date"
+          },
+          "especies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Especie"
+              }
+            }
+          },
+          "navesespaciales": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Naveespacial"
+              }
+            }
+          },
+          "vehiculos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Vehiculo"
+              }
+            }
+          },
+          "personajes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Persona"
+              }
+            }
+          },
+          "planetas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Planeta"
+              }
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "creacion": {
+            "type": "string",
+            "format": "date"
+          },
+          "edicion": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Naveespacial": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "modelo": {
+            "type": "string"
+          },
+          "naveespacial_clase": {
+            "type": "string"
+          },
+          "fabricante": {
+            "type": "string"
+          },
+          "costo_en_creditos": {
+            "type": "string"
+          },
+          "longitud": {
+            "type": "string"
+          },
+          "tripulacion": {
+            "type": "string"
+          },
+          "pasajeros": {
+            "type": "string"
+          },
+          "velocidad_atmosferica_maxima": {
+            "type": "string"
+          },
+          "clasificacion_supervehiculo": {
+            "type": "string"
+          },
+          "MGLT": {
+            "type": "string"
+          },
+          "capacidad_carga": {
+            "type": "string"
+          },
+          "duracion_autonoma": {
+            "type": "string"
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Pelicula"
+              }
+            }
+          },
+          "pilotos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Persona"
+              }
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "creacion": {
+            "type": "string",
+            "format": "date"
+          },
+          "edicion": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Vehiculo": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "modelo": {
+            "type": "string"
+          },
+          "vehiculo_clase": {
+            "type": "string"
+          },
+          "fabricante": {
+            "type": "string"
+          },
+          "longitud": {
+            "type": "string"
+          },
+          "costo_en_creditos": {
+            "type": "string"
+          },
+          "tripulacion": {
+            "type": "string"
+          },
+          "pasajeros": {
+            "type": "string"
+          },
+          "velocidad_atmosferica_maxima": {
+            "type": "string"
+          },
+          "capacidad_carga": {
+            "type": "string"
+          },
+          "duracion_autonoma": {
+            "type": "string"
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Pelicula"
+              }
+            }
+          },
+          "pilotos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Persona"
+              }
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "creacion": {
+            "type": "string",
+            "format": "date"
+          },
+          "edicion": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Especie": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "clasificacion": {
+            "type": "string"
+          },
+          "altura_promedio": {
+            "type": "string"
+          },
+          "vida_promedio": {
+            "type": "string"
+          },
+          "color_ojos": {
+            "type": "string"
+          },
+          "color_cabello": {
+            "type": "string"
+          },
+          "color_piel": {
+            "type": "string"
+          },
+          "idioma": {
+            "type": "string"
+          },
+          "mundonatal": {
+            "type": "string"
+          },
+          "personas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Persona"
+              }
+            }
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Pelicula"
+              }
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "creacion": {
+            "type": "string",
+            "format": "date"
+          },
+          "edicion": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Planeta": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "diametro": {
+            "type": "string"
+          },
+          "periodo_rotacion": {
+            "type": "string"
+          },
+          "gravedad": {
+            "type": "string"
+          },
+          "poblacion": {
+            "type": "string"
+          },
+          "clima": {
+            "type": "string"
+          },
+          "terreno": {
+            "type": "string"
+          },
+          "superficie_de_agua": {
+            "type": "string"
+          },
+          "residentes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Persona"
+              }
+            }
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/Pelicula"
+              }
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "creacion": {
+            "type": "string",
+            "format": "date"
+          },
+          "edicion": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    }
+  }
+}
