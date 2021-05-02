@@ -115,17 +115,6 @@
     "/api/v1.0/db/{model}": {
       "post": {
         "summary": "Crea un nuevo registro segun modelo. Usar Postman si falla.",
-        "requestBody": {
-          "description": "Detalles del nuevo registro creado segun el modelo",
-          "required": true,
-          "content": {
-            "application/JSON": {
-              "example": {
-                "$ref": "#/components/schemas/Personas"
-              }
-            }
-          }
-        },
         "description": "Crea un nuevo registro segun el modelo y el body ingresado. Debe contener un campo {id: XX}.",
         "responses": {
           "200": {
@@ -140,7 +129,18 @@
           "description": "Modelo de los Schemas disponibles en la DB",
           "required": true
         }
-      ]
+      ],
+      "requestBody": {
+        "description": "Detalles del nuevo registro creado segun el modelo",
+        "required": true,
+        "content": {
+          "application/JSON": {
+            "example": {
+              "$ref": "#/components/schemas/Personas"
+            }
+          }
+        }
+      }
     }
   },
   "components": {
