@@ -114,7 +114,19 @@
     },
     "/api/v1.0/db/{model}": {
       "post": {
-        "description": "Crea un nuevo registro segun el modelo y el body ingresado",
+        "summary": "Crea un nuevo registro segun modelo. Usar Postman si falla.",
+        "requestBody": {
+          "description": "Detalles del nuevo registro creado segun el modelo",
+          "required": true,
+          "content": {
+            "application/JSON": {
+              "example": {
+                "$ref": "#/components/schemas/Personas"
+              }
+            }
+          }
+        },
+        "description": "Crea un nuevo registro segun el modelo y el body ingresado. Debe contener un campo {id: XX}.",
         "responses": {
           "200": {
             "description": "Nuevo registro creado en al DynamoDB"
@@ -133,30 +145,7 @@
   },
   "components": {
     "schemas": {
-      "Root": {
-        "type": "object",
-        "properties": {
-          "peliculas": {
-            "type": "string"
-          },
-          "personas": {
-            "type": "string"
-          },
-          "planetas": {
-            "type": "string"
-          },
-          "especies": {
-            "type": "string"
-          },
-          "naves": {
-            "type": "string"
-          },
-          "vehiculos": {
-            "type": "string"
-          }
-        }
-      },
-      "Persona": {
+      "Personas": {
         "type": "object",
         "properties": {
           "anio_nacimiento": {
@@ -170,7 +159,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Pelicula"
+                "$ref": "#/components/schemas/Peliculas"
               }
             }
           },
@@ -208,7 +197,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Especie"
+                "$ref": "#/components/schemas/Especies"
               }
             }
           },
@@ -217,7 +206,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Naveespacial"
+                "$ref": "#/components/schemas/Naveespaciales"
               }
             }
           },
@@ -229,13 +218,13 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Vehiculo"
+                "$ref": "#/components/schemas/Vehiculos"
               }
             }
           }
         }
       },
-      "Pelicula": {
+      "Peliculas": {
         "type": "object",
         "properties": {
           "titulo": {
@@ -262,7 +251,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Especie"
+                "$ref": "#/components/schemas/Especies"
               }
             }
           },
@@ -271,7 +260,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Naveespacial"
+                "$ref": "#/components/schemas/Naveespaciales"
               }
             }
           },
@@ -280,7 +269,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Vehiculo"
+                "$ref": "#/components/schemas/Vehiculos"
               }
             }
           },
@@ -289,7 +278,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Persona"
+                "$ref": "#/components/schemas/Personas"
               }
             }
           },
@@ -298,7 +287,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Planeta"
+                "$ref": "#/components/schemas/Planetas"
               }
             }
           },
@@ -315,7 +304,7 @@
           }
         }
       },
-      "Naveespacial": {
+      "Naveespaciales": {
         "type": "object",
         "properties": {
           "nombre": {
@@ -362,7 +351,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Pelicula"
+                "$ref": "#/components/schemas/Peliculas"
               }
             }
           },
@@ -371,7 +360,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Persona"
+                "$ref": "#/components/schemas/Personas"
               }
             }
           },
@@ -388,7 +377,7 @@
           }
         }
       },
-      "Vehiculo": {
+      "Vehiculos": {
         "type": "object",
         "properties": {
           "nombre": {
@@ -429,7 +418,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Pelicula"
+                "$ref": "#/components/schemas/Peliculas"
               }
             }
           },
@@ -438,7 +427,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Persona"
+                "$ref": "#/components/schemas/Personas"
               }
             }
           },
@@ -455,7 +444,7 @@
           }
         }
       },
-      "Especie": {
+      "Especies": {
         "type": "object",
         "properties": {
           "nombre": {
@@ -490,7 +479,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Persona"
+                "$ref": "#/components/schemas/Personas"
               }
             }
           },
@@ -499,7 +488,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Pelicula"
+                "$ref": "#/components/schemas/Peliculas"
               }
             }
           },
@@ -516,7 +505,7 @@
           }
         }
       },
-      "Planeta": {
+      "Planetas": {
         "type": "object",
         "properties": {
           "nombre": {
@@ -548,7 +537,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Persona"
+                "$ref": "#/components/schemas/Personas"
               }
             }
           },
@@ -557,7 +546,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/components/schemas/Pelicula"
+                "$ref": "#/components/schemas/Peliculas"
               }
             }
           },
